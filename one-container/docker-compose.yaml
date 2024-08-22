@@ -7,7 +7,7 @@ volumes:
 services:
   wg-easy:
     environment:
-      - WG_HOST=172.10.16.111
+      - WG_HOST=easteregg.ddns.net
       - PASSWORD=Shindig.Surgical4.Traction
       - WG_DEFAULT_DNS=100.64.0.5 # This is the Pi-Hole Container's IP Address
       - WG_DEFAULT_ADDRESS=10.8.0.x
