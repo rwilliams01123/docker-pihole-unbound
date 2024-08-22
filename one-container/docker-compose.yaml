@@ -3,20 +3,23 @@ version: '3.0'
 volumes:
   etc_pihole-unbound:
   etc_pihole_dnsmasq-unbound:
+  etc_no-ip_config:
+  etc_wg-easy:
 
 services:
-  no-ip:
+  noip:
     image: aanousakis/no-ip:latest
+    container_name: no-ip_duc
     environment:
       - USERNAME=${NOIP_USERNAME}
       - PASSWORD=${NOIP_PASSWORD}
       - HOSTNAMES=${NOIP_HOSTNAMES}
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - etc_no-ip_config:/config
+    restart: unless-stopped
 
-  wg-easy:
+  wgeasy:
     environment:
       - WG_HOST=${WG_HOST}
       - PASSWORD=${PASSWORD}
@@ -27,7 +30,7 @@ services:
     image: ghcr.io/wg-easy/wg-easy
     container_name: wg-easy
     volumes:
-      - ~/.wg-easy:/etc/wireguard
+      - etc_wg-easy:/etc/wireguard
     ports:
       - "51820:51820/udp"
       - "51821:51821/tcp"
