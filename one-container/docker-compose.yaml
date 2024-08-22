@@ -8,14 +8,14 @@ services:
   no-ip:
     image: aanousakis/no-ip:latest
     environment:
-      USERNAME=${NOIP_USERNAME}
-      PASSWORD=${NOIP_PASSWORD}
-      HOSTNAMES=${NOIP_HOSTNAMES}
+      - USERNAME=${NOIP_USERNAME}
+      - PASSWORD=${NOIP_PASSWORD}
+      - HOSTNAMES=${NOIP_HOSTNAMES}
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
-        
+
   wg-easy:
     environment:
       - WG_HOST=${WG_HOST}
