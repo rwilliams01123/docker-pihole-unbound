@@ -25,7 +25,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - WG_HOST=${WG_HOST}
-      - PASSWORD=${WG_PASSWORD}
+      - PASSWORD_HASH=${WG_PASSWORD_HASH}
       - WG_DEFAULT_DNS=${WG_DEFAULT_DNS} # This is the Pi-Hole Container's IP Address
       - WG_DEFAULT_ADDRESS=${WG_DEFAULT_ADDRESS}
       - WG_PERSISTENT_KEEPALIVE=${WG_PERSISTENT_KEEPALIVE}
