@@ -9,7 +9,7 @@ volumes:
 services:
   noip:
     image: aanousakis/no-ip:latest
-    container_name: no-ip_duc
+    container_name:  No-IP_DDNS
     environment:
       - USERNAME=${NOIP_USERNAME}
       - PASSWORD=${NOIP_PASSWORD}
@@ -22,13 +22,13 @@ services:
   wgeasy:
     environment:
       - WG_HOST=${WG_HOST}
-      - PASSWORD=${PASSWORD}
+      - PASSWORD=${WG_PASSWORD}
       - WG_DEFAULT_DNS=${WG_DEFAULT_DNS} # This is the Pi-Hole Container's IP Address
       - WG_DEFAULT_ADDRESS=${WG_DEFAULT_ADDRESS}
       - WG_PERSISTENT_KEEPALIVE=${WG_PERSISTENT_KEEPALIVE}
       - WG_ALLOWED_IPS=${WG_ALLOWED_IPS}
     image: ghcr.io/wg-easy/wg-easy
-    container_name: wg-easy
+    container_name: Wireguard-VPN
     volumes:
       - etc_wg-easy:/etc/wireguard
     ports:
@@ -46,15 +46,16 @@ services:
         ipv4_address: 100.64.0.6
 
   pihole:
-    container_name: pihole
+    container_name: pihole-DNS
     image: cbcrowe/pihole-unbound:latest
-    hostname: ${HOSTNAME}
-    domainname: ${DOMAIN_NAME}
+    hostname: ${PIHOLE_HOSTNAME}
+    domainname: ${PIHOLE_DOMAIN_NAME}
     ports:      
       - 443:443/tcp
       - 53:53/tcp
       - 53:53/udp
-      - ${PIHOLE_WEBPORT:-80}:80/tcp #Allows use of different port to access pihole web interface when other docker containers use port 80
+      - 67:67/udp
+      - 80:80/tcp #Allows use of different port to access pihole web interface when other docker containers use port 80
       # - 5335:5335/tcp # Uncomment to enable unbound access on local server
       # - 22/tcp # Uncomment to enable SSH
     networks:
@@ -63,17 +64,25 @@ services:
     cap_add:  #for host and macvlan network
       - NET_ADMIN  #for host and macvlan network
     environment:
-      - FTLCONF_LOCAL_IPV4=${FTLCONF_LOCAL_IPV4}
-      - TZ=${TZ:-UTC}
-      - WEBPASSWORD=${WEBPASSWORD}
-      - WEBTHEME=${WEBTHEME:-default-light}
-      - REV_SERVER=${REV_SERVER:-false}
-      - REV_SERVER_TARGET=${REV_SERVER_TARGET}
-      - REV_SERVER_DOMAIN=${REV_SERVER_DOMAIN}
-      - REV_SERVER_CIDR=${REV_SERVER_CIDR}
+      - FTLCONF_LOCAL_IPV4=${PIHOLE_FTLCONF_LOCAL_IPV4}
+      - TZ=${PIHOLE_TZ:-UTC}
+      - WEBPASSWORD=${PIHOLE_WEBPASSWORD}
+      - WEBTHEME=default-light
+      - REV_SERVER=${PIHOLE_REV_SERVER:-false}
+      - REV_SERVER_TARGET=${PIHOLE_REV_SERVER_TARGET}
+      - REV_SERVER_DOMAIN=${PIHOLE_REV_SERVER_DOMAIN}
+      - REV_SERVER_CIDR=${PIHOLE_REV_SERVER_CIDR}
       - PIHOLE_DNS_=127.0.0.1#5335
       - DNSSEC="true"
       - DNSMASQ_LISTENING=single
+      - DHCP_ACTIVE="true"
+      - DHCP_START=100.64.0.200
+      - DHCP_END=100.64.0.250
+      - DHCP_ROUTER=100.64.0.1
+      - DHCP_LEASETIME=24
+      - PIHOLE_DOMAIN=home
+      - DHCP_rapid_commit="true"
+      - TEMPERATUREUNIT=f
     volumes:
       - etc_pihole-unbound:/etc/pihole:rw
       - etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
