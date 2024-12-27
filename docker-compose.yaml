@@ -81,13 +81,13 @@ services:
       - PIHOLE_DNS_=127.0.0.1#5335
       - DNSSEC="true"
       - DNSMASQ_LISTENING=single
-      - DHCP_ACTIVE="true"
-      - DHCP_START=100.64.0.200
-      - DHCP_END=100.64.0.250
-      - DHCP_ROUTER=100.64.0.1
-      - DHCP_LEASETIME=24
-      - PIHOLE_DOMAIN=home
-      - DHCP_rapid_commit="true"
+      #- DHCP_ACTIVE="true"
+      #- DHCP_START=100.64.0.200
+      #- DHCP_END=100.64.0.250
+      #- DHCP_ROUTER=100.64.0.1
+      #- DHCP_LEASETIME=24
+      #- PIHOLE_DOMAIN=home
+      #- DHCP_rapid_commit="true"
       - TEMPERATUREUNIT=f
     volumes:
       - etc_pihole-unbound:/etc/pihole:rw
