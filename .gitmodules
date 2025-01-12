@@ -1,0 +1,3 @@
+[submodule "wg-easy-docker"]
+	path = wg-easy-docker
+	url = https://github.com/rwilliams01123/wg-easy-docker.git
