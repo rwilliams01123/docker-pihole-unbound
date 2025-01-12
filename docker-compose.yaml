@@ -21,7 +21,7 @@ services:
 
   wg-easy:
     build:
-      context: ./wg-easy
+      context: ./wg-easy-docker
       dockerfile: Dockerfile
     environment:
       - WG_HOST=${WG_HOST}
