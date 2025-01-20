@@ -1,5 +1,8 @@
 # Pi-Hole + Unbound - 1 Container
 
+## Clone
+git clone --recurse-submodules -j8 [ssh url]
+
 ## Description
 
 This Docker deployment runs both Pi-Hole and Unbound in a single container.
