@@ -34,9 +34,9 @@ services:
       - WG_ALLOWED_IPS=${WG_ALLOWED_IPS}
     volumes:
       - etc_wireguard:/etc/wireguard
-    ports:
-      - "51820:51820/udp"
-      - "51821:51821/tcp"
+    #ports:
+      #- "51820:51820/udp"
+      #- "51821:51821/tcp"
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
