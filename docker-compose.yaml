@@ -72,7 +72,7 @@ services:
     environment:
       - "FTLCONF_LOCAL_IPV4: ${PIHOLE_FTLCONF_LOCAL_IPV4}"
       - "TZ: ${PIHOLE_TZ:-UTC}"
-      - WEBPASSWORD: ${PIHOLE_WEBPASSWORD}
+      - "WEBPASSWORD: ${PIHOLE_WEBPASSWORD}"
       - WEBTHEME: default-light
       - REV_SERVER: ${PIHOLE_REV_SERVER:-false}
       - REV_SERVER_TARGET: ${PIHOLE_REV_SERVER_TARGET}
