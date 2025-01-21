@@ -70,7 +70,7 @@ services:
     cap_add:  #for host and macvlan network
       - NET_ADMIN  #for host and macvlan network
     environment:
-      - FTLCONF_LOCAL_IPV4=${PIHOLE_FTLCONF_LOCAL_IPV4}
+      - "FTLCONF_LOCAL_IPV4: ${PIHOLE_FTLCONF_LOCAL_IPV4}"
       - TZ: ${PIHOLE_TZ:-UTC}
       - WEBPASSWORD: ${PIHOLE_WEBPASSWORD}
       - WEBTHEME: default-light
