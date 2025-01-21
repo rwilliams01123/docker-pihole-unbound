@@ -11,9 +11,9 @@ services:
     image: aanousakis/no-ip:latest
     container_name:  noip_ddns
     environment:
-      - USERNAME: ${NOIP_USERNAME}
-      - PASSWORD: ${NOIP_PASSWORD}
-      - HOSTNAMES: ${NOIP_HOSTNAMES}
+      - "USERNAME: ${NOIP_USERNAME}"
+      - "PASSWORD: ${NOIP_PASSWORD}"
+      - "HOSTNAMES: ${NOIP_HOSTNAMES}"
     volumes:
       - /etc/localtime:/etc/localtime
       - etc_no-ip_config:/config
@@ -26,12 +26,12 @@ services:
     image: ghcr.io/wg-easy/wg-easy
     container_name: wireguard_vpn
     environment:
-      - WG_HOST: ${WG_HOST}
-      - PASSWORD_HASH: $$2a$$12$$WJhkU56RbkKrdPUfZiJRWO.cyWuO.xtRdvyll/mhglesEEVGKW1da
-      - WG_DEFAULT_DNS: ${WG_DEFAULT_DNS} # This is the Pi-Hole Container's IP Address
-      - WG_DEFAULT_ADDRESS: ${WG_DEFAULT_ADDRESS}
-      - WG_PERSISTENT_KEEPALIVE: ${WG_PERSISTENT_KEEPALIVE}
-      - WG_ALLOWED_IPS: ${WG_ALLOWED_IPS}
+      - "WG_HOST: ${WG_HOST}"
+      - "PASSWORD_HASH: $$2a$$12$$WJhkU56RbkKrdPUfZiJRWO.cyWuO.xtRdvyll/mhglesEEVGKW1da"
+      - "WG_DEFAULT_DNS: ${WG_DEFAULT_DNS} # This is the Pi-Hole Container's IP Address"
+      - "WG_DEFAULT_ADDRESS: ${WG_DEFAULT_ADDRESS}"
+      - "WG_PERSISTENT_KEEPALIVE: ${WG_PERSISTENT_KEEPALIVE}"
+      - "WG_ALLOWED_IPS: ${WG_ALLOWED_IPS}"
     volumes:
       - etc_wireguard:/etc/wireguard
     ports:
